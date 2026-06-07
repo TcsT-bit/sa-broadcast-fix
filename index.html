@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SA Broadcast Fix - 3 Way Deal Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background: #0f172a; color: #e2e8f0; line-height: 1.6; }
+    header { background: linear-gradient(135deg, #1e40af, #0ea5e9); padding: 2rem; text-align: center; }
+    header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    header p { opacity: 0.9; font-size: 1.1rem; }
+    nav { display: flex; justify-content: center; gap: 1rem; background: #1e293b; padding: 1rem; position: sticky; top: 0; z-index: 10; flex-wrap: wrap; }
+    nav button { background: #334155; border: none; padding: 0.8rem 1.5rem; color: #e2e8f0; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s; }
+    nav button.active, nav button:hover { background: #0ea5e9; color: white; }
+    main { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+    section { display: none; animation: fadeIn 0.3s ease-in; }
+    section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .card { background: #1e293b; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid #334155; }
+    .card h2 { color: #38bdf8; margin-bottom: 1rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+    .problem-card { border-left: 4px solid #ef4444; }
+    .solution-card { border-left: 4px solid #22c55e; }
+    .win-card { border-left: 4px solid #facc15; }
+    .step-card { border-left: 4px solid #a855f7; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { padding: 0.8rem; text-align: left; border-bottom: 1px solid #334155; }
+    th { background: #334155; color: #38bdf8; }
+    .btn { background: #0ea5e9; color: white; padding: 0.8rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 1rem; margin-right: 0.5rem; }
+    .btn:hover { background: #0284c7; }
+    .btn-green { background: #22c55e; }
+    .btn-green:hover { background: #16a34a; }
+    .slider-container { margin: 1rem 0; }
+    input[type="range"] { width: 100%; }
+    .result { background: #0f172a; padding: 1rem; border-radius: 8px; margin-top: 1rem; border: 1px solid #22c55e; }
+    footer { text-align: center; padding: 2rem; color: #64748b; font-size: 0.9rem; }
+    .badge { display: inline-block; background: #22c55e; color: #0f172a; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 600; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>SA Broadcast Fix</h1>
+    <p>One System, 3 Parties, 1 Deal That Works For Everyone</p>
+</header>
+
+<nav>
+    <button class="tab-btn active" data-tab="problem">The Problem</button>
+    <button class="tab-btn" data-tab="solution">The Deal</button>
+    <button class="tab-btn" data-tab="simulator">Win Simulator</button>
+    <button class="tab-btn" data-tab="process">Sign-off Steps</button>
+</nav>
+
+<main>
+    <!-- PROBLEM SECTION -->
+    <section id="problem" class="active">
+        <div class="card">
+            <h2>Why SABC, Sentech & Treasury Are Stuck Together</h2>
+            <p>It’s one broken funding model from the 1990s. Fix one part, the whole thing collapses.</p>
+        </div>
+        <div class="grid">
+            <div class="card problem-card">
+                <h3>SABC</h3>
+                <p><strong>Losing:</strong> R17M/month</p>
+                <p><strong>Problem:</strong> Must fund public mandate with ads + 10% TV licence collection. Can’t pay Sentech.</p>
+            </div>
+            <div class="card problem-card">
+                <h3>Sentech</h3>
+                <p><strong>Owed:</strong> R1.2B by SABC</p>
+                <p><strong>Problem:</strong> Debt grows R70M/month. Can’t maintain towers or buy diesel. Needs bailout too.</p>
+            </div>
+            <div class="card problem-card">
+                <h3>National Treasury</h3>
+                <p><strong>Funds:</strong> R100M/year vs R800M needed</p>
+                <p><strong>Problem:</strong> Can’t do ad-hoc bailouts forever. Fiscal constraints + 50 other SOEs asking.</p>
+            </div>
+        </div>
+        <div class="card">
+            <h2>The Circular Debt Trap</h2>
+            <ol>
+                <li>Treasury underfunds SABC’s public mandate</li>
+                <li>SABC uses ad money to cover gap, but ads are falling</li>
+                <li>SABC can’t pay Sentech</li>
+                <li>Sentech can’t maintain infrastructure, needs Treasury bailout</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- SOLUTION SECTION -->
+    <section id="solution">
+        <div class="card solution-card">
+            <h2>The Broadcast Infrastructure SPV Deal</h2>
+            <p>Stop funding failure. Start monetizing assets. Treasury gets equity, SABC gets debt relief, Sentech gets cash.</p>
+            <button class="btn btn-green" onclick="downloadPDF()">Download Proposal PDF</button>
+        </div>
+        
+        <div class="grid">
+            <div class="card win-card">
+                <h3>What Treasury Wins</h3>
+                <ul>
+                    <li>R800M becomes equity in income-generating assets</li>
+                    <li>Stops R1B+ ad-hoc bailouts</li>
+                    <li>Gets dividends + fiscal credibility</li>
+                    <li>51% control, low risk</li>
+                </ul>
+            </div>
+            <div class="card win-card">
+                <h3>What SABC Wins</h3>
+                <ul>
+                    <li>R1.2B debt to Sentech wiped</li>
+                    <li>R240M/year guaranteed for public content</li>
+                    <li>Split commercial vs public finances</li>
+                    <li>Break-even by 2027</li>
+                </ul>
+            </div>
+            <div class="card win-card">
+                <h3>What Sentech Wins</h3>
+                <ul>
+                    <li>R480M cash + long-term loan</li>
+                    <li>29% stake in profitable SPV</li>
+                    <li>Guaranteed Treasury customer</li>
+                    <li>New telco revenue streams</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>How It Works</h2>
+            <p><strong>Step 1:</strong> Move towers + spectrum into SPV owned 51% Treasury, 29% Sentech, 20% SABC</p>
+            <p><strong>Step 2:</strong> Sell capacity to Telcos, Netflix, Gov for 5G, rural backhaul, emergency comms</p>
+            <p><strong>Step 3:</strong> Fund public service from telco revenue, not taxpayer bailouts</p>
+            <p style="margin-top:1rem; color:#22c55e;"><strong>Result:</strong> 90% rural coverage in 3 years, no retrenchments upfront, BEE capital participation</p>
+        </div>
+    </section>
+
+    <!-- SIMULATOR SECTION -->
+    <section id="simulator">
+        <div class="card">
+            <h2>Win Simulator</h2>
+            <p>Adjust the numbers to see how the deal changes outcomes. This is what you’d show in Parliament.</p>
+        </div>
+        
+        <div class="card">
+            <h3>Treasury Funding per Year</h3>
+            <div class="slider-container">
+                <input type="range" id="funding" min="400" max="1200" value="800" step="50">
+                <p>R<span id="fundingVal">800</span> Million</p>
+            </div>
+
+            <h3>SABC Cost Cuts Achieved</h3>
+            <div class="slider-container">
+                <input type="range" id="cuts" min="200" max="700" value="500" step="50">
+                <p>R<span id="cutsVal">500</span> Million</p>
+            </div>
+
+            <button class="btn" onclick="runSimulation()">Run Simulation</button>
+            
+            <div id="result" class="result" style="display:none;">
+                <h3>Projected Outcome by Year 3</h3>
+                <table>
+                    <tr><th>Metric</th><th>Result</th></tr>
+                    <tr><td>SABC Monthly Loss</td><td id="sabcLoss"></td></tr>
+                    <tr><td>Sentech Debt Growth</td><td id="sentechDebt"></td></tr>
+                    <tr><td>Treasury Annual Cost</td><td id="treasuryCost"></td></tr>
+                    <tr><td>Rural Coverage</td><td id="coverage"></td></tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS SECTION -->
+    <section id="process">
+        <div class="card step-card">
+            <h2>Exact Sign-off Steps for Parliament</h2>
+            <p>Follow this 6-step path. Total timeline: 4-6 months if prioritized.</p>
+        </div>
+
+        <div class="grid">
+            <div class="card step-card">
+                <h3>Step 1: Cabinet Memo <span class="badge">Month 1</span></h3>
+                <p>Dept of Communications submits memo for SPV establishment + R800M equity injection. Needs DG sign-off.</p>
+            </div>
+            <div class="card step-card">
+                <h3>Step 2: Treasury MTEF Amendment <span class="badge">Month 1-2</span></h3>
+                <p>Treasury allocates R800M/year for 3 years in Medium Term Expenditure Framework. Tabled with Budget Review.</p>
+            </div>
+            <div class="card step-card">
+                <h3>Step 3: SABC Bill Amendment <span class="badge">Month 2-3</span></h3>
+                <p>Reintroduce SABC Bill with funding clause for SPV model. Portfolio Committee hearings + public comment.</p>
+            </div>
+            <div class="card step-card">
+                <h3>Step 4: SPV Registration <span class="badge">Month 3-4</span></h3>
+                <p>Register SPV under Companies Act. Asset transfer agreements between SABC, Sentech, Treasury signed.</p>
+            </div>
+            <div class="card step-card">
+                <h3>Step 5: Debt Restructure <span class="badge">Month 4-5</span></h3>
+                <p>Sentech writes off 40% of SABC debt. Convert 30% to loan. Treasury pays 30% over 3 years.</p>
+            </div>
+            <div class="card step-card">
+                <h3>Step 6: Launch & Oversight <span class="badge">Month 6</span></h3>
+                <p>SPV operational. AG audits yearly. Performance contract with SABC signed. Review in 2028.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Key Risk Mitigation</h2>
+            <table>
+                <tr><th>Risk</th><th>Mitigation</th></tr>
+                <tr><td>Treasury fears bailout repeat</td><td>Performance contract + sunset clause in 2028</td></tr>
+                <tr><td>SABC misses targets</td><td>Funding paused if KPIs not met. Independent AG audit.</td></tr>
+                <tr><td>Political interference</td><td>Independent board panel for SPV appointments</td></tr>
+                <tr><td>Telco revenue too low</td><td>Phase 1: Use existing SABC/Sentech contracts as anchor revenue</td></tr>
+            </table>
+        </div>
+    </section>
+</main>
+
+<footer>
+    Built for positive change | SA Broadcast Fix Team 2025
+</footer>
+
+<script>
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(btn.dataset.tab).classList.add('active');
+        });
+    });
+
+    // Sliders
+    const fundingSlider = document.getElementById('funding');
+    const cutsSlider = document.getElementById('cuts');
+    document.getElementById('fundingVal').textContent = fundingSlider.value;
+    document.getElementById('cutsVal').textContent = cutsSlider.value;
+    
+    fundingSlider.oninput = () => document.getElementById('fundingVal').textContent = fundingSlider.value;
+    cutsSlider.oninput = () => document.getElementById('cutsVal').textContent = cutsSlider.value;
+
+    // Simulation logic
+    function runSimulation() {
+        const funding = parseInt(fundingSlider.value);
+        const cuts = parseInt(cutsSlider.value);
+        
+        const sabcLoss = Math.max(-50, 17 - (cuts/100) - (funding/200));
+        const sentechDebt = Math.max(0, 70 - (funding/20));
+        const coverage = Math.min(95, 60 + (funding/20));
+
+        document.getElementById('sabcLoss').textContent = sabcLoss > 0 ? `+R${sabcLoss.toFixed(0)}M profit` : `R${Math.abs(sabcLoss).toFixed(0)}M loss`;
+        document.getElementById('sentechDebt').textContent = sentechDebt > 0 ? `+R${sentechDebt.toFixed(0)}M/month` : 'Stopped';
+        document.getElementById('treasuryCost').textContent = `R${funding}M fixed`;
+        document.getElementById('coverage').textContent = `${coverage.toFixed(0)}%`;
+
+        document.getElementById('result').style.display = 'block';
+    }
+
+    // PDF Download
+    async function downloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        doc.setFontSize(18);
+        doc.text("SA Broadcast Fix - 3 Way Deal Proposal", 20, 20);
+        
+        doc.setFontSize(12);
+        doc.text("Problem:", 20, 35);
+        doc.text("SABC losing R17M/month. Sentech owed R1.2B. Treasury stuck with ad-hoc bailouts.", 20, 42);
+        
+        doc.text("Solution: Broadcast Infrastructure SPV", 20, 55);
+        doc.text("1. Move towers/spectrum into SPV: 51% Treasury, 29% Sentech, 20% SABC", 20, 62);
+        doc.text("2. Sell capacity to Telcos for 5G, rural backhaul", 20, 69);
+        doc.text("3. Fund public service from telco revenue", 20, 76);
+        
+        doc.text("Wins:", 20, 90);
+        doc.text("Treasury: R800M equity, stops bailouts, gets dividends", 20, 97);
+        doc.text("SABC: Debt wiped, R240M/year guaranteed for content", 20, 104);
+        doc.text("Sentech: R480M cash, 29% stake in profitable SPV", 20, 111);
+        
+        doc.text("Timeline: 6 months to launch. Review in 2028.", 20, 125);
+        
+        doc.save("SA_Broadcast_Fix_Proposal.pdf");
+    }
+</script>
+
+</body>
+      </html>
