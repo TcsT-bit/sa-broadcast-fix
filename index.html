@@ -7,7 +7,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background: #0f172a; color: #e2e8f0; line-height: 1.6; }
+    body { background: #0f172a; color: #e2e8f0; line-height: 1.6; user-select: none; }
+    body::after {
+        content: "CONFIDENTIAL - TwinZ Cooperate Services Pty Ltd";
+        position: fixed; bottom: 10px; right: 10px; font-size: 0.8rem; color: #64748b; opacity: 0.5; pointer-events: none; z-index: 999;
+    }
     header { background: linear-gradient(135deg, #1e40af, #0ea5e9); padding: 2rem; text-align: center; position: relative; }
     header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
     header p { opacity: 0.9; font-size: 1.1rem; }
@@ -18,7 +22,7 @@
     main { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
     section { display: none; animation: fadeIn 0.3s ease-in; }
     section.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .card { background: #1e293b; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid #334155; position: relative; }
     .card h2 { color: #38bdf8; margin-bottom: 1rem; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
@@ -33,6 +37,8 @@
     .btn:hover { background: #0284c7; }
     .btn-green { background: #22c55e; }
     .btn-green:hover { background: #16a34a; }
+    .btn-gold { background: #facc15; color: #0f172a; }
+    .btn-gold:hover { background: #eab308; }
     .slider-container { margin: 1rem 0; }
     input[type="range"] { width: 100%; }
     .result { background: #0f172a; padding: 1rem; border-radius: 8px; margin-top: 1rem; border: 1px solid #22c55e; }
@@ -40,27 +46,37 @@
     .badge { display: inline-block; background: #22c55e; color: #0f172a; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 600; font-size: 0.85rem; }
     .confidential { position: fixed; bottom: 10px; right: 10px; font-size: 0.8rem; color: #64748b; opacity: 0.7; }
     .disclaimer { background: #451a03; border: 1px solid #f59e0b; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; color: #94a3b8; }
+    .form-group input, .form-group textarea { width: 100%; padding: 0.8rem; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #e2e8f0; }
+    .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
+    .modal-content { background: #1e293b; margin: 10% auto; padding: 2rem; border-radius: 12px; width: 90%; max-width: 600px; border: 1px solid #334155; }
+    .close { color: #94a3b8; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+    .fee-box { background: #0f172a; padding: 1rem; border-radius: 8px; border: 1px solid #0ea5e9; margin: 1rem 0; }
 </style>
 </head>
-<body>
+<body oncontextmenu="return false" oncopy="return false" oncut="return false">
 
 <header>
     <h1>SA Broadcast Fix</h1>
     <p>One System, 3 Parties, 1 Deal That Works For Everyone</p>
-    <div class="company-tag">Prepared by TwinZ Cooperate Services Pty Ltd © 2025</div>
+    <div class="company-tag">Prepared by TwinZ Cooperate Services Pty Ltd © 2026</div>
 </header>
 
 <nav>
     <button class="tab-btn active" data-tab="problem">The Problem</button>
     <button class="tab-btn" data-tab="solution">The Deal</button>
+    <button class="tab-btn" data-tab="mandate">Transaction Mandate</button>
     <button class="tab-btn" data-tab="simulator">Win Simulator</button>
     <button class="tab-btn" data-tab="process">Sign-off Steps</button>
+    <button class="tab-btn" data-tab="contact">Contact</button>
 </nav>
 
 <main>
     <div class="disclaimer">
         <strong>Confidential & Proprietary:</strong> This proposal and IP belongs to TwinZ Cooperate Services Pty Ltd. 
         Unauthorized use, reproduction, or disclosure is prohibited. For licensing/usage contact TwinZ Cooperate Services Pty Ltd.
+        <button class="btn" style="margin-left:1rem; padding:0.4rem 0.8rem;" onclick="openNDA()">Request NDA</button>
     </div>
 
     <!-- PROBLEM SECTION -->
@@ -103,6 +119,7 @@
             <h2>The Broadcast Infrastructure SPV Deal</h2>
             <p>Stop funding failure. Start monetizing assets. Treasury gets equity, SABC gets debt relief, Sentech gets cash.</p>
             <button class="btn btn-green" onclick="downloadPDF()">Download Proposal PDF</button>
+            <button class="btn btn-gold" onclick="openMandate()">View Transaction Advisor Mandate</button>
         </div>
         
         <div class="grid">
@@ -142,6 +159,49 @@
             <p><strong>Step 3:</strong> Fund public service from telco revenue, not taxpayer bailouts</p>
             <p style="margin-top:1rem; color:#22c55e;"><strong>Result:</strong> 90% rural coverage in 3 years, no retrenchments upfront, BEE capital participation</p>
         </div>
+    </section>
+
+    <!-- TRANSACTION MANDATE SECTION -->
+    <section id="mandate">
+        <div class="card">
+            <h2>Transaction Advisor Mandate Proposal</h2>
+            <p>This is how TwinZ Cooperate Services Pty Ltd gets paid to make this deal happen.</p>
+        </div>
+
+        <div class="card">
+            <h3>Scope of Work</h3>
+            <ul>
+                <li>Structure SPV legal, financial, and governance framework</li>
+                <li>Facilitate negotiations between Treasury, Sentech, SABC</li>
+                <li>Prepare business case, financial model, Cabinet memo</li>
+                <li>Manage stakeholder engagement and due diligence</li>
+                <li>Oversee asset transfer and debt restructuring process</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Fee Structure</h3>
+            <div class="fee-box">
+                <h4>Option 1: Fixed Fee</h4>
+                <p>R2.5M total. R500k upfront, R1M at Cabinet approval, R1M at financial close.</p>
+            </div>
+            <div class="fee-box">
+                <h4>Option 2: Success Fee</h4>
+                <p>1.5% of SPV asset value at financial close. Estimated R30M on R2B deal.</p>
+            </div>
+            <div class="fee-box">
+                <h4>Option 3: Hybrid</h4>
+                <p>R1M upfront + 0.75% success fee. Most common for SOE deals.</p>
+            </div>
+            <p style="margin-top:1rem; font-size:0.9rem; color:#94a3b8;">Fees payable to TwinZ Cooperate Services Pty Ltd. Reg: 2024/444303/07. CSD registered.</p>
+        </div>
+
+        <div class="card">
+            <h3>Post-Deal Role</h3>
+            <p>TwinZ requests 3-year advisory role in SPV at 1% of gross revenue for setup, monitoring, and stakeholder management. Estimated R20M-R50M over 5 years.</p>
+        </div>
+
+        <button class="btn btn-gold" onclick="downloadMandatePDF()">Download Mandate PDF</button>
     </section>
 
     <!-- SIMULATOR SECTION -->
@@ -213,13 +273,56 @@
             </div>
         </div>
     </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <div class="card">
+            <h2>Request Meeting / NDA / Mandate</h2>
+            <p>This proposal is confidential. Submit your details to receive full 10-page concept note and financial model.</p>
+            <form id="contactForm" onsubmit="submitContact(event)">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Organization</label>
+                    <input type="text" id="org" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea id="message" rows="4" placeholder="I am interested in the Transaction Advisor role..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-green">Submit Request</button>
+            </form>
+            <p id="formMsg" style="margin-top:1rem; color:#22c55e; display:none;">Request sent. TwinZ will contact you within 24 hours.</p>
+        </div>
+    </section>
 </main>
 
 <footer>
-    © 2025 TwinZ Cooperate Services Pty Ltd. All Rights Reserved. | Proposal v1.0
+    © 2026 TwinZ Cooperate Services Pty Ltd. All Rights Reserved. | Proposal v2.0<br>
+    Reg No: 2024/444303/07 | Email: twinz.cooperate.services@gmail.com
 </footer>
 
 <div class="confidential">Confidential - TwinZ Cooperate Services Pty Ltd</div>
+
+<!-- NDA Modal -->
+<div id="ndaModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeNDA()">&times;</span>
+        <h2>Non-Disclosure Agreement Request</h2>
+        <p>To access the full concept note and financial model, please accept our NDA.</p>
+        <div class="card" style="background:#0f172a; margin-top:1rem;">
+            <p>This NDA protects the proprietary methodology, financial model, and stakeholder engagement strategy developed by TwinZ Cooperate Services Pty Ltd.</p>
+            <p>By proceeding, you agree not to disclose, reproduce, or use this IP without written consent.</p>
+        </div>
+        <button class="btn btn-green" onclick="acceptNDA()">I Accept NDA</button>
+    </div>
+</div>
 
 <script>
     // Tab switching
@@ -268,7 +371,7 @@
         
         doc.setFontSize(10);
         doc.text("Prepared by: TwinZ Cooperate Services Pty Ltd", 20, 28);
-        doc.text("© 2025 TwinZ Cooperate Services Pty Ltd. All Rights Reserved.", 20, 34);
+        doc.text("© 2026 TwinZ Cooperate Services Pty Ltd. All Rights Reserved.", 20, 34);
         doc.text("CONFIDENTIAL & PROPRIETARY", 20, 40);
         
         doc.setFontSize(12);
@@ -292,6 +395,59 @@
         
         doc.save("TwinZ_SA_Broadcast_Fix_Proposal.pdf");
     }
+
+    // Mandate PDF
+    async function downloadMandatePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        doc.setFontSize(16);
+        doc.text("Transaction Advisor Mandate Proposal", 20, 20);
+        doc.setFontSize(10);
+        doc.text("TwinZ Cooperate Services Pty Ltd", 20, 28);
+        doc.text("Reg No: 2024/444303/07", 20, 34);
+        
+        doc.setFontSize(12);
+        doc.text("Scope of Work:", 20, 50);
+        doc.text("- Structure SPV legal, financial, governance framework", 20, 57);
+        doc.text("- Facilitate negotiations between Treasury, Sentech, SABC", 20, 64);
+        doc.text("- Prepare business case, financial model, Cabinet memo", 20, 71);
+        
+        doc.text("Fee Structure:", 20, 85);
+        doc.text("Option 1: Fixed Fee R2.5M", 20, 92);
+        doc.text("Option 2: Success Fee 1.5% of SPV asset value", 20, 99);
+        doc.text("Option 3: Hybrid R1M upfront + 0.75% success fee", 20, 106);
+        
+        doc.text("Post-Deal: 3-year advisory at 1% gross revenue", 20, 120);
+        
+        doc.save("TwinZ_Transaction_Mandate.pdf");
+    }
+
+    // NDA Modal
+    function openNDA() { document.getElementById('ndaModal').style.display = 'block'; }
+    function closeNDA() { document.getElementById('ndaModal').style.display = 'none'; }
+    function acceptNDA() { 
+        closeNDA(); 
+        alert('NDA accepted. Full concept note and financial model will be sent to your email within 24 hours.');
+    }
+    function openMandate() { 
+        document.querySelector('[data-tab="mandate"]').click(); 
+    }
+
+    // Contact form
+    function submitContact(e) {
+        e.preventDefault();
+        document.getElementById('formMsg').style.display = 'block';
+        document.getElementById('contactForm').reset();
+        // In production, send to your backend/email service
+    }
+
+    // Basic IP protection
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'c')) {
+            e.preventDefault();
+        }
+    });
 </script>
 
 </body>
