@@ -3,22 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SA Broadcast Fix - 3 Way Deal Dashboard</title>
+<title>SA Broadcast Fix - 3 Way Deal Proposal | TwinZ Cooperate Services Pty Ltd</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     body { background: #0f172a; color: #e2e8f0; line-height: 1.6; }
-    header { background: linear-gradient(135deg, #1e40af, #0ea5e9); padding: 2rem; text-align: center; }
+    header { background: linear-gradient(135deg, #1e40af, #0ea5e9); padding: 2rem; text-align: center; position: relative; }
     header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
     header p { opacity: 0.9; font-size: 1.1rem; }
+    .company-tag { font-size: 0.9rem; background: rgba(0,0,0,0.3); display: inline-block; padding: 0.3rem 0.8rem; border-radius: 6px; margin-top: 0.5rem; }
     nav { display: flex; justify-content: center; gap: 1rem; background: #1e293b; padding: 1rem; position: sticky; top: 0; z-index: 10; flex-wrap: wrap; }
     nav button { background: #334155; border: none; padding: 0.8rem 1.5rem; color: #e2e8f0; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.2s; }
     nav button.active, nav button:hover { background: #0ea5e9; color: white; }
     main { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
     section { display: none; animation: fadeIn 0.3s ease-in; }
     section.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    .card { background: #1e293b; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid #334155; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); }
+    .card { background: #1e293b; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid #334155; position: relative; }
     .card h2 { color: #38bdf8; margin-bottom: 1rem; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
     .problem-card { border-left: 4px solid #ef4444; }
@@ -37,6 +38,8 @@
     .result { background: #0f172a; padding: 1rem; border-radius: 8px; margin-top: 1rem; border: 1px solid #22c55e; }
     footer { text-align: center; padding: 2rem; color: #64748b; font-size: 0.9rem; }
     .badge { display: inline-block; background: #22c55e; color: #0f172a; padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 600; font-size: 0.85rem; }
+    .confidential { position: fixed; bottom: 10px; right: 10px; font-size: 0.8rem; color: #64748b; opacity: 0.7; }
+    .disclaimer { background: #451a03; border: 1px solid #f59e0b; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
 </style>
 </head>
 <body>
@@ -44,6 +47,7 @@
 <header>
     <h1>SA Broadcast Fix</h1>
     <p>One System, 3 Parties, 1 Deal That Works For Everyone</p>
+    <div class="company-tag">Prepared by TwinZ Cooperate Services Pty Ltd © 2025</div>
 </header>
 
 <nav>
@@ -54,6 +58,11 @@
 </nav>
 
 <main>
+    <div class="disclaimer">
+        <strong>Confidential & Proprietary:</strong> This proposal and IP belongs to TwinZ Cooperate Services Pty Ltd. 
+        Unauthorized use, reproduction, or disclosure is prohibited. For licensing/usage contact TwinZ Cooperate Services Pty Ltd.
+    </div>
+
     <!-- PROBLEM SECTION -->
     <section id="problem" class="active">
         <div class="card">
@@ -139,7 +148,7 @@
     <section id="simulator">
         <div class="card">
             <h2>Win Simulator</h2>
-            <p>Adjust the numbers to see how the deal changes outcomes. This is what you’d show in Parliament.</p>
+            <p>Adjust the numbers to see how the deal changes outcomes. Created by TwinZ Cooperate Services Pty Ltd.</p>
         </div>
         
         <div class="card">
@@ -174,7 +183,7 @@
     <section id="process">
         <div class="card step-card">
             <h2>Exact Sign-off Steps for Parliament</h2>
-            <p>Follow this 6-step path. Total timeline: 4-6 months if prioritized.</p>
+            <p>Proprietary methodology developed by TwinZ Cooperate Services Pty Ltd. Total timeline: 4-6 months if prioritized.</p>
         </div>
 
         <div class="grid">
@@ -184,15 +193,15 @@
             </div>
             <div class="card step-card">
                 <h3>Step 2: Treasury MTEF Amendment <span class="badge">Month 1-2</span></h3>
-                <p>Treasury allocates R800M/year for 3 years in Medium Term Expenditure Framework. Tabled with Budget Review.</p>
+                <p>Treasury allocates R800M/year for 3 years in Medium Term Expenditure Framework.</p>
             </div>
             <div class="card step-card">
                 <h3>Step 3: SABC Bill Amendment <span class="badge">Month 2-3</span></h3>
-                <p>Reintroduce SABC Bill with funding clause for SPV model. Portfolio Committee hearings + public comment.</p>
+                <p>Reintroduce SABC Bill with funding clause for SPV model. Portfolio Committee hearings.</p>
             </div>
             <div class="card step-card">
                 <h3>Step 4: SPV Registration <span class="badge">Month 3-4</span></h3>
-                <p>Register SPV under Companies Act. Asset transfer agreements between SABC, Sentech, Treasury signed.</p>
+                <p>Register SPV under Companies Act. Asset transfer agreements signed.</p>
             </div>
             <div class="card step-card">
                 <h3>Step 5: Debt Restructure <span class="badge">Month 4-5</span></h3>
@@ -200,26 +209,17 @@
             </div>
             <div class="card step-card">
                 <h3>Step 6: Launch & Oversight <span class="badge">Month 6</span></h3>
-                <p>SPV operational. AG audits yearly. Performance contract with SABC signed. Review in 2028.</p>
+                <p>SPV operational. AG audits yearly. Performance contract signed. Review in 2028.</p>
             </div>
-        </div>
-
-        <div class="card">
-            <h2>Key Risk Mitigation</h2>
-            <table>
-                <tr><th>Risk</th><th>Mitigation</th></tr>
-                <tr><td>Treasury fears bailout repeat</td><td>Performance contract + sunset clause in 2028</td></tr>
-                <tr><td>SABC misses targets</td><td>Funding paused if KPIs not met. Independent AG audit.</td></tr>
-                <tr><td>Political interference</td><td>Independent board panel for SPV appointments</td></tr>
-                <tr><td>Telco revenue too low</td><td>Phase 1: Use existing SABC/Sentech contracts as anchor revenue</td></tr>
-            </table>
         </div>
     </section>
 </main>
 
 <footer>
-    Built for positive change | SA Broadcast Fix Team 2025
+    © 2025 TwinZ Cooperate Services Pty Ltd. All Rights Reserved. | Proposal v1.0
 </footer>
+
+<div class="confidential">Confidential - TwinZ Cooperate Services Pty Ltd</div>
 
 <script>
     // Tab switching
@@ -258,33 +258,41 @@
         document.getElementById('result').style.display = 'block';
     }
 
-    // PDF Download
+    // PDF Download with TwinZ branding
     async function downloadPDF() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         
-        doc.setFontSize(18);
+        doc.setFontSize(16);
         doc.text("SA Broadcast Fix - 3 Way Deal Proposal", 20, 20);
         
+        doc.setFontSize(10);
+        doc.text("Prepared by: TwinZ Cooperate Services Pty Ltd", 20, 28);
+        doc.text("© 2025 TwinZ Cooperate Services Pty Ltd. All Rights Reserved.", 20, 34);
+        doc.text("CONFIDENTIAL & PROPRIETARY", 20, 40);
+        
         doc.setFontSize(12);
-        doc.text("Problem:", 20, 35);
-        doc.text("SABC losing R17M/month. Sentech owed R1.2B. Treasury stuck with ad-hoc bailouts.", 20, 42);
+        doc.text("Problem:", 20, 55);
+        doc.text("SABC losing R17M/month. Sentech owed R1.2B. Treasury stuck with ad-hoc bailouts.", 20, 62);
         
-        doc.text("Solution: Broadcast Infrastructure SPV", 20, 55);
-        doc.text("1. Move towers/spectrum into SPV: 51% Treasury, 29% Sentech, 20% SABC", 20, 62);
-        doc.text("2. Sell capacity to Telcos for 5G, rural backhaul", 20, 69);
-        doc.text("3. Fund public service from telco revenue", 20, 76);
+        doc.text("Solution: Broadcast Infrastructure SPV", 20, 75);
+        doc.text("1. Move towers/spectrum into SPV: 51% Treasury, 29% Sentech, 20% SABC", 20, 82);
+        doc.text("2. Sell capacity to Telcos for 5G, rural backhaul", 20, 89);
+        doc.text("3. Fund public service from telco revenue", 20, 96);
         
-        doc.text("Wins:", 20, 90);
-        doc.text("Treasury: R800M equity, stops bailouts, gets dividends", 20, 97);
-        doc.text("SABC: Debt wiped, R240M/year guaranteed for content", 20, 104);
-        doc.text("Sentech: R480M cash, 29% stake in profitable SPV", 20, 111);
+        doc.text("Wins:", 20, 110);
+        doc.text("Treasury: R800M equity, stops bailouts, gets dividends", 20, 117);
+        doc.text("SABC: Debt wiped, R240M/year guaranteed for content", 20, 124);
+        doc.text("Sentech: R480M cash, 29% stake in profitable SPV", 20, 131);
         
-        doc.text("Timeline: 6 months to launch. Review in 2028.", 20, 125);
+        doc.text("Timeline: 6 months to launch. Review in 2028.", 20, 145);
         
-        doc.save("SA_Broadcast_Fix_Proposal.pdf");
+        doc.setFontSize(9);
+        doc.text("This document is proprietary to TwinZ Cooperate Services Pty Ltd. Unauthorized use prohibited.", 20, 160);
+        
+        doc.save("TwinZ_SA_Broadcast_Fix_Proposal.pdf");
     }
 </script>
 
 </body>
-      </html>
+</html>
